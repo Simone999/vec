@@ -1,4 +1,4 @@
-/** 
+﻿/**
  * Copyright (c) 2014 rxi
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -10,6 +10,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <pthread.h>
 
 #define VEC_VERSION "0.2.1"
 
@@ -53,7 +54,7 @@
 #define vec_insert(v, idx, val)\
   ( vec_insert_(vec_unpack_(v), idx) ? -1 :\
     ((v)->data[idx] = (val), 0), (v)->length++, 0 )
-    
+
 
 #define vec_sort(v, fn)\
   qsort((v)->data, (v)->length, sizeof(*(v)->data), fn)
@@ -82,7 +83,7 @@
 #define vec_reserve(v, n)\
   vec_reserve_(vec_unpack_(v), n)
 
- 
+
 #define vec_compact(v)\
   vec_compact_(vec_unpack_(v))
 
@@ -156,19 +157,19 @@
 
 
 
-int vec_expand_(char **data, int *length, int *capacity, int memsz);
-int vec_reserve_(char **data, int *length, int *capacity, int memsz, int n);
-int vec_reserve_po2_(char **data, int *length, int *capacity, int memsz,
-                     int n);
-int vec_compact_(char **data, int *length, int *capacity, int memsz);
-int vec_insert_(char **data, int *length, int *capacity, int memsz,
-                int idx);
-void vec_splice_(char **data, int *length, int *capacity, int memsz,
-                 int start, int count);
-void vec_swapsplice_(char **data, int *length, int *capacity, int memsz,
-                     int start, int count);
-void vec_swap_(char **data, int *length, int *capacity, int memsz,
-               int idx1, int idx2);
+int vec_expand_(char** data, int* length, int* capacity, int memsz);
+int vec_reserve_(char** data, int* length, int* capacity, int memsz, int n);
+int vec_reserve_po2_(char** data, int* length, int* capacity, int memsz,
+	int n);
+int vec_compact_(char** data, int* length, int* capacity, int memsz);
+int vec_insert_(char** data, int* length, int* capacity, int memsz,
+	int idx);
+void vec_splice_(char** data, int* length, int* capacity, int memsz,
+	int start, int count);
+void vec_swapsplice_(char** data, int* length, int* capacity, int memsz,
+	int start, int count);
+void vec_swap_(char** data, int* length, int* capacity, int memsz,
+	int idx1, int idx2);
 
 
 typedef vec_t(void*) vec_void_t;
